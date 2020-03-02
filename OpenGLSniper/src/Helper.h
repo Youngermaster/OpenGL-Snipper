@@ -13,6 +13,7 @@ public:
 	void drawPixel(int x, int y);
 	void drawPoint(GLint pointVertex[], int size);
 	void drawQuad(float vertices[]);
+	void drawLineStripLoop(float vertices[]);
 	void drawBresenhamsLine(int x0, int y0, int xEnd, int yEnd, int displayWidth, int displayHeight);
 
 	void moveQuadToRight(float vertices[]);

@@ -58,6 +58,24 @@ void Helper::drawQuad(float vertices[]) {
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+void Helper::drawLineStripLoop(float vertices[]) {
+
+	GLfloat colour[]{
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
+	};
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
+	glColorPointer(3, GL_FLOAT, 0, colour);
+	glDrawArrays(GL_LINE_LOOP, 0, 3);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+
 /* Bresenham line-drawing procedure for |m| < 1.0. */
 void Helper::drawBresenhamsLine(int x0, int y0, int xEnd, int yEnd, int displayWidth, int displayHeight) {
 	int dx = fabs(xEnd - x0), dy = fabs(yEnd - y0);

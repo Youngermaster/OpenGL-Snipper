@@ -12,92 +12,110 @@
 #define LOG(x) std::cout << x << std::endl
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-float vertices[]
+
+GLfloat quadVertices[]
 {
-    SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3 * 2, 0.0,
-    SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3 * 2, 0.0,
-    SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3, 0.0,
-    SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3, 0.0
+	SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3 * 2, 0.0,
+	SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3 * 2, 0.0,
+	SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3, 0.0,
+	SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3, 0.0
 };
+
+GLfloat halfScreenWidth = SCREEN_WIDTH / 2;
+GLfloat halfScreenHeight = SCREEN_HEIGHT / 2;
+GLfloat halfSideLenght = 200;
+
+GLfloat triangleVertices[]{
+	halfScreenWidth, halfScreenHeight + halfSideLenght, 0.0,
+	halfScreenWidth - halfSideLenght, halfScreenHeight, 0.0,
+	halfScreenWidth + halfSideLenght, halfScreenHeight, 0.0,
+};
+
+GLfloat colour[]{
+	255, 0, 0
+};
+
 
 int main(void)
 {
-    GLFWwindow* window;
+	GLFWwindow* window;
 
-    // Initialize the library
-    if (!glfwInit())
-    {
-        return -1;
-    }
+	// Initialize the library
+	if (!glfwInit())
+	{
+		return -1;
+	}
 
-    // Create a windowed mode window and its OpenGL context
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Challenge Two", NULL, NULL);
+	// Create a windowed mode window and its OpenGL context
+	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Challenge Two", NULL, NULL);
 
-    int screenWidth, screenHeight;
-    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
+	int screenWidth, screenHeight;
+	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
+	if (!window)
+	{
+		glfwTerminate();
+		return -1;
+	}
 
-    // Make the window's context current
-    glfwMakeContextCurrent(window);
-    glfwSetKeyCallback(window, keyCallback);
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
+	// Make the window's context current
+	glfwMakeContextCurrent(window);
+	glfwSetKeyCallback(window, keyCallback);
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
-    Helper helper = Helper();
+	Helper helper = Helper();
 
-    helper.setup(window, SCREEN_WIDTH, SCREEN_HEIGHT);
+	helper.setup(window, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    // Loop until the user closes the window
-    while (!glfwWindowShouldClose(window))
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
+	// Loop until the user closes the window
+	while (!glfwWindowShouldClose(window))
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
 
-        // Render OpenGL here
-        helper.drawQuad(vertices);
-        // Swap front and back buffers
-        glfwSwapBuffers(window);
+		// Render OpenGL here
+		helper.drawQuad(quadVertices);
+		helper.drawLineStripLoop(triangleVertices);
+		
+		// Swap front and back buffers
+		glfwSwapBuffers(window);
 
-        // Poll for and process events
-        glfwPollEvents();
-    }
+		// Poll for and process events
+		glfwPollEvents();
+	}
 
-    glfwTerminate();
+	glfwTerminate();
 
-    return 0;
+	return 0;
 }
 
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    LOG(key);
+	LOG(key);
 
-    // actions are GLFW_PRESS, GLFW_RELEASE or GLFW_REPEAT
-    if (key == GLFW_KEY_SPACE && action == GLFW_REPEAT)
-    {
-        LOG("Space Key Pressed");
-    }
-    if (key == GLFW_KEY_RIGHT)
-    {
-        Helper().moveQuadToRight(vertices);
-        LOG("Move to right");
-    }
-    if (key == GLFW_KEY_LEFT)
-    {
-        Helper().moveQuadToLeft(vertices);
-        LOG("Move to left");
-    }
-    if (key == GLFW_KEY_UP)
-    {
-        Helper().scaleQuadUpper(vertices);
-        LOG("Scale Upper");
-    }
-    if (key == GLFW_KEY_DOWN)
-    {
-        Helper().scaleQuadDown(vertices);
-        LOG("Scale Down");
-    }
+	// actions are GLFW_PRESS, GLFW_RELEASE or GLFW_REPEAT
+	if (key == GLFW_KEY_SPACE && action == GLFW_REPEAT)
+	{
+		LOG("Space Key Pressed");
+	}
+	if (key == GLFW_KEY_RIGHT)
+	{
+		Helper().moveQuadToRight(quadVertices);
+		LOG("Move to right");
+	}
+	if (key == GLFW_KEY_LEFT)
+	{
+		Helper().moveQuadToLeft(quadVertices);
+		LOG("Move to left");
+	}
+	if (key == GLFW_KEY_UP)
+	{
+		Helper().scaleQuadUpper(quadVertices);
+		LOG("Scale Upper");
+	}
+	if (key == GLFW_KEY_DOWN)
+	{
+		Helper().scaleQuadDown(quadVertices);
+		LOG("Scale Down");
+	}
 }
