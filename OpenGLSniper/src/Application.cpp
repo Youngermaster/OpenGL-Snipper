@@ -5,36 +5,15 @@
 #include <math.h>
 
 #include "Helper.h"
+#include "Enviroment.h"
+#include "Enemy.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
 #define LOG(x) std::cout << x << std::endl
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-GLfloat quadVertices[]
-{
-	SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3 * 2, 0.0,
-	SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3 * 2, 0.0,
-	SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3, 0.0,
-	SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3, 0.0
-};
-
-GLfloat halfScreenWidth = SCREEN_WIDTH / 2;
-GLfloat halfScreenHeight = SCREEN_HEIGHT / 2;
-GLfloat halfSideLenght = 200;
-
-GLfloat triangleVertices[]{
-	halfScreenWidth, halfScreenHeight + halfSideLenght, 0.0,
-	halfScreenWidth - halfSideLenght, halfScreenHeight, 0.0,
-	halfScreenWidth + halfSideLenght, halfScreenHeight, 0.0,
-};
-
-GLfloat colour[]{
-	255, 0, 0
-};
-
+// void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 int main(void)
 {
@@ -47,7 +26,7 @@ int main(void)
 	}
 
 	// Create a windowed mode window and its OpenGL context
-	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Challenge Two", NULL, NULL);
+	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "OpenGLSniper", NULL, NULL);
 
 	int screenWidth, screenHeight;
 	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
@@ -60,10 +39,12 @@ int main(void)
 
 	// Make the window's context current
 	glfwMakeContextCurrent(window);
-	glfwSetKeyCallback(window, keyCallback);
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
+	// glfwSetKeyCallback(window, keyCallback);
+	// glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
 	Helper helper = Helper();
+	Enviroment enviroment = Enviroment();
+	Enemy enemy = Enemy();
 
 	helper.setup(window, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -73,9 +54,8 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Render OpenGL here
-		helper.drawQuad(quadVertices);
-		helper.drawLineStripLoop(triangleVertices);
-		
+		enviroment.init();
+		enemy.render();
 		// Swap front and back buffers
 		glfwSwapBuffers(window);
 
@@ -88,7 +68,7 @@ int main(void)
 	return 0;
 }
 
-
+/*
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	LOG(key);
@@ -119,3 +99,4 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		LOG("Scale Down");
 	}
 }
+*/

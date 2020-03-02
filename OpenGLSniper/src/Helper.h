@@ -13,7 +13,9 @@ public:
 	void drawPixel(int x, int y);
 	void drawPoint(GLint pointVertex[], int size);
 	void drawQuad(float vertices[]);
-	void drawLineStripLoop(float vertices[]);
+	void drawLineStripLoop(float vertices[], int size, bool color = false);
+	void drawPolygon(float vertices[], int size);
+	void drawPolygon(float vertices[], int size, GLfloat color[]);
 	void drawBresenhamsLine(int x0, int y0, int xEnd, int yEnd, int displayWidth, int displayHeight);
 
 	void moveQuadToRight(float vertices[]);
