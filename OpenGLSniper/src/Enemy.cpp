@@ -18,22 +18,38 @@ Enemy::Enemy(int health, int damage) :
 	this->halfScreenWidth = SCREEN_WIDTH / 2;
 	this->halfScreenHeight = SCREEN_HEIGHT / 2;
 	this->halfSideLenght = 100;
+	// this->shootArea[] = { 0, 0, 0, 0 };
 }
 
 Enemy::~Enemy() {}
 
 void Enemy::render() {
-	GLfloat body[]{
-		halfScreenWidth - 20, halfScreenHeight + halfSideLenght + 20, 0,
-		halfScreenWidth - 20, halfScreenHeight + halfSideLenght, 0,
-		halfScreenWidth - 10, halfScreenHeight + halfSideLenght, 0,
-		halfScreenWidth - 10, halfScreenHeight + halfSideLenght - 50, 0,
-
-		halfScreenWidth + 40, halfScreenHeight + halfSideLenght - 50, 0,
-		halfScreenWidth + 40, halfScreenHeight + halfSideLenght, 0,
-		halfScreenWidth + 50, halfScreenHeight + halfSideLenght, 0,
-		halfScreenWidth + 50, halfScreenHeight + halfSideLenght+ 20, 0,
+	GLfloat colorRed[]{
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
+		255, 0, 0,
 	};
 
-	this->helper.drawPolygon(body, 8);
+	GLfloat body[]{
+		halfScreenWidth - 30, halfScreenHeight + halfSideLenght + 20, 0,
+		halfScreenWidth - 20, halfScreenHeight + halfSideLenght - 50, 0,
+
+		halfScreenWidth + 30, halfScreenHeight + halfSideLenght - 50, 0,
+		halfScreenWidth + 40, halfScreenHeight + halfSideLenght + 20, 0,
+	};
+
+	GLfloat head[]{
+		halfScreenWidth - 30, halfScreenHeight + halfSideLenght + 20, 0,
+		halfScreenWidth - 20, halfScreenHeight + halfSideLenght - 50, 0,
+
+		halfScreenWidth + 30, halfScreenHeight + halfSideLenght - 50, 0,
+		halfScreenWidth + 40, halfScreenHeight + halfSideLenght + 20, 0,
+	};
+
+	this->helper.drawPolygon(body, 4, colorRed);
 }
