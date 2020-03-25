@@ -29,10 +29,6 @@ void Enemy::render() {
 		255, 0, 0,
 		255, 0, 0,
 		255, 0, 0,
-		255, 0, 0,
-		255, 0, 0,
-		255, 0, 0,
-		255, 0, 0,
 	};
 
 	GLfloat body[]{
@@ -43,13 +39,24 @@ void Enemy::render() {
 		halfScreenWidth + 40, halfScreenHeight + halfSideLenght + 20, 0,
 	};
 
-	GLfloat head[]{
-		halfScreenWidth - 30, halfScreenHeight + halfSideLenght + 20, 0,
-		halfScreenWidth - 20, halfScreenHeight + halfSideLenght - 50, 0,
+	//GLfloat head[]{
+	//	halfScreenWidth - 30, halfScreenHeight + halfSideLenght + 20, 0,
+	//	halfScreenWidth - 20, halfScreenHeight + halfSideLenght - 50, 0,
 
-		halfScreenWidth + 30, halfScreenHeight + halfSideLenght - 50, 0,
-		halfScreenWidth + 40, halfScreenHeight + halfSideLenght + 20, 0,
-	};
+	//	halfScreenWidth + 30, halfScreenHeight + halfSideLenght - 50, 0,
+	//	halfScreenWidth + 40, halfScreenHeight + halfSideLenght + 20, 0,
+	//};
 
 	this->helper.drawPolygon(body, 4, colorRed);
+}
+
+void Enemy::scale() {
+	vertices[0] -= 1;
+	vertices[1] += 1;
+	vertices[3] += 1;
+	vertices[4] += 1;
+	vertices[6] += 1;
+	vertices[7] -= 1;
+	vertices[9] -= 1;
+	vertices[10] -= 1;
 }
