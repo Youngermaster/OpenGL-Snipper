@@ -1,4 +1,5 @@
 # OpenGL Sniper
+## [NO LONGER MAINTAINED]
 
 This is a sniper game made only with OpenGL, using GLFW and GLEW.
 
